@@ -227,7 +227,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JPanel detailsPanel() {
 		JPanel empDetails = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel();
-		JTextField field;
+		JTextField field = null;
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
@@ -265,33 +265,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		cancelChange.setVisible(false);
 		cancelChange.setToolTipText("Cancel edit");
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
-
-		// loop through panel components and add listeners and format
-		for (int i = 0; i < empDetails.getComponentCount(); i++) {
-			empDetails.getComponent(i).setFont(font1);
-			if (empDetails.getComponent(i) instanceof JTextField) {
-				field = (JTextField) empDetails.getComponent(i);
-				field.setEditable(false);
-				if (field == ppsField)
-					field.setDocument(new JTextFieldLimit(9));
-				else
-					field.setDocument(new JTextFieldLimit(20));
-				field.getDocument().addDocumentListener(this);
-			} // end if
-			else if (empDetails.getComponent(i) instanceof JComboBox) {
-				empDetails.getComponent(i).setBackground(Color.WHITE);
-				empDetails.getComponent(i).setEnabled(false);
-				((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
-				((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
-					// set foregroung to combo boxes
-					public void paint(Graphics g) {
-						setForeground(new Color(65, 65, 65));
-						super.paint(g);
-					}// end paint
-				});
-			} // end else if
-		} // end for
+		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");		
+		createPopUpForEmployeeDetails(empDetails, field);
 		return empDetails;
 	}// end detailsPanel
 
@@ -323,18 +298,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				else
 					countDep++;
 			} // end while
-			idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
-			ppsField.setText(thisEmployee.getPps().trim());
-			surnameField.setText(thisEmployee.getSurname().trim());
-			firstNameField.setText(thisEmployee.getFirstName());
-			genderCombo.setSelectedIndex(countGender);
-			departmentCombo.setSelectedIndex(countDep);
-			salaryField.setText(format.format(thisEmployee.getSalary()));
-			// set corresponding full time combo box value to current employee
-			if (thisEmployee.getFullTime() == true)
-				fullTimeCombo.setSelectedIndex(1);
-			else
-				fullTimeCombo.setSelectedIndex(2);
+			
+			
+
+			/*created a method which displays the users details to cut down the amount of code 
+			 */
+			setDisplay(thisEmployee,countGender,countDep);
 		}
 		change = false;
 	}// end display records
@@ -1136,4 +1105,48 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void windowOpened(WindowEvent e) {
 	}
+	/*created to Display a user*/
+	public void setDisplay(Employee thisEmployee, int countGender, int countDep) {
+		idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
+		ppsField.setText(thisEmployee.getPps().trim());
+		surnameField.setText(thisEmployee.getSurname().trim());
+		firstNameField.setText(thisEmployee.getFirstName());
+		genderCombo.setSelectedIndex(countGender);
+		departmentCombo.setSelectedIndex(countDep);
+		salaryField.setText(format.format(thisEmployee.getSalary()));
+		
+		if (thisEmployee.getFullTime() == true)
+			fullTimeCombo.setSelectedIndex(1);
+		else
+			fullTimeCombo.setSelectedIndex(2);
+	}
+	
+	// loop through panel components and add listeners and format
+	public void createPopUpForEmployeeDetails(JPanel empDetails,JTextField field ) {
+	for (int i = 0; i < empDetails.getComponentCount(); i++) {
+		empDetails.getComponent(i).setFont(font1);
+		if (empDetails.getComponent(i) instanceof JTextField) {
+			field = (JTextField) empDetails.getComponent(i);
+			field.setEditable(false);
+			if (field == ppsField)
+				field.setDocument(new JTextFieldLimit(9));
+			else
+				field.setDocument(new JTextFieldLimit(20));
+			field.getDocument().addDocumentListener(this);
+		} // end if
+		else if (empDetails.getComponent(i) instanceof JComboBox) {
+			empDetails.getComponent(i).setBackground(Color.WHITE);
+			empDetails.getComponent(i).setEnabled(false);
+			((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
+			((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
+				// set foregroung to combo boxes
+				public void paint(Graphics g) {
+					setForeground(new Color(65, 65, 65));
+					super.paint(g);
+				}// end paint
+			});
+		} // end else if
+	} // end for
+	}
+	
 }// end class EmployeeDetails
