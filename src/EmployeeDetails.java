@@ -152,8 +152,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
-		searchPanel.add(searchId = new JButton(new ImageIcon(
-				new ImageIcon("search.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
+		searchPanel.add(
+				searchId = new JButton(new ImageIcon(
+						new ImageIcon("search.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
 				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
@@ -163,8 +164,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(
-				searchSurname = new JButton(new ImageIcon(new ImageIcon("search.png").getImage()
-						.getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
+				searchSurname = new JButton(new ImageIcon(
+						new ImageIcon("search.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
 				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
 		searchSurname.addActionListener(this);
 		searchSurname.setToolTipText("Search Employee By Surname");
@@ -183,8 +184,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		first.addActionListener(this);
 		first.setToolTipText("Display first Record");
 
-		navigPanel.add(previous = new JButton(new ImageIcon(new ImageIcon("prev.png").getImage()
-				.getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
+		navigPanel.add(previous = new JButton(new ImageIcon(
+				new ImageIcon("prev.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH))));
 		previous.setPreferredSize(new Dimension(17, 17));
 		previous.addActionListener(this);
 		previous.setToolTipText("Display next Record");
@@ -265,7 +266,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		cancelChange.setVisible(false);
 		cancelChange.setToolTipText("Cancel edit");
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");		
+		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
 		addListenersAndFormat(empDetails, field);
 		return empDetails;
 	}// end detailsPanel
@@ -281,7 +282,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// if Employee is null or ID is 0 do nothing else display Employee
 		// details
 		if (thisEmployee == null || thisEmployee.getEmployeeId() == 0) {
-		
+
 		} else {
 			// find corresponding gender combo box value to current employee
 			while (!found && countGender < gender.length - 1) {
@@ -298,12 +299,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				else
 					countDep++;
 			} // end while
-			
-			
 
-			/*created a method which displays the users details to cut down the amount of code 
+			/*
+			 * created a method which displays the users details to cut down the amount of
+			 * code
 			 */
-			setDisplay(thisEmployee,countGender,countDep);
+			setDisplay(thisEmployee, countGender, countDep);
 		}
 		change = false;
 	}// end display records
@@ -623,11 +624,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		boolean ppsExist = false;
 		// check for correct PPS format based on assignment description
 		if (pps.length() == 8 || pps.length() == 9) {
-			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1))
-					&& Character.isDigit(pps.charAt(2))	&& Character.isDigit(pps.charAt(3)) 
-					&& Character.isDigit(pps.charAt(4))	&& Character.isDigit(pps.charAt(5)) 
-					&& Character.isDigit(pps.charAt(6))	&& Character.isLetter(pps.charAt(7))
-					&& (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
+			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1)) && Character.isDigit(pps.charAt(2))
+					&& Character.isDigit(pps.charAt(3)) && Character.isDigit(pps.charAt(4))
+					&& Character.isDigit(pps.charAt(5)) && Character.isDigit(pps.charAt(6))
+					&& Character.isLetter(pps.charAt(7)) && (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
 				// open file for reading
 				application.openReadFile(file.getAbsolutePath());
 				// look in file is PPS already in use
@@ -952,73 +952,131 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	// action listener for buttons, text field and menu items
 	public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == closeApp) {
-			if (checkInput() && !checkForChanges())
+	if (e.getSource() == searchId || e.getSource() == searchByIdField) {
+			//in else statement
+			searchEmployeeById();
+	}
+	else if (e.getSource() == cancelChange) {
+		//in else statement
+		cancelChange();
+	}
+	else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField) {
+		//in else statement
+		searchEmployeeBySurname();
+	}
+	else if (checkInput() && !checkForChanges()) {
+			if (e.getSource() == closeApp) {
 				exitApp();
 		} else if (e.getSource() == open) {
-			if (checkInput() && !checkForChanges())
 				openFile();
 		} else if (e.getSource() == save) {
-			if (checkInput() && !checkForChanges())
-				saveFile();
+			saveFile();
 			change = false;
 		} else if (e.getSource() == saveAs) {
-			if (checkInput() && !checkForChanges())
-				saveFileAs();
+			saveFileAs();
 			change = false;
 		} else if (e.getSource() == searchById) {
-			if (checkInput() && !checkForChanges())
 				displaySearchByIdDialog();
 		} else if (e.getSource() == searchBySurname) {
-			if (checkInput() && !checkForChanges())
 				displaySearchBySurnameDialog();
-		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
-			searchEmployeeById();
-		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
-			searchEmployeeBySurname();
+		} 
+		
 		else if (e.getSource() == saveChange) {
 			if (checkInput() && !checkForChanges())
 				;
-		} else if (e.getSource() == cancelChange)
-			cancelChange();
+		} 
 		else if (e.getSource() == firstItem || e.getSource() == first) {
-			if (checkInput() && !checkForChanges()) {
 				firstRecord();
 				displayRecords(currentEmployee);
-			}
 		} else if (e.getSource() == prevItem || e.getSource() == previous) {
-			if (checkInput() && !checkForChanges()) {
 				previousRecord();
 				displayRecords(currentEmployee);
-			}
 		} else if (e.getSource() == nextItem || e.getSource() == next) {
-			if (checkInput() && !checkForChanges()) {
 				nextRecord();
 				displayRecords(currentEmployee);
-			}
 		} else if (e.getSource() == lastItem || e.getSource() == last) {
-			if (checkInput() && !checkForChanges()) {
 				lastRecord();
 				displayRecords(currentEmployee);
-			}
 		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
-			if (checkInput() && !checkForChanges())
 				if (isSomeoneToDisplay())
 					displayEmployeeSummaryDialog();
 		} else if (e.getSource() == create || e.getSource() == add) {
-			if (checkInput() && !checkForChanges())
 				new AddRecordDialog(EmployeeDetails.this);
 		} else if (e.getSource() == modify || e.getSource() == edit) {
-			if (checkInput() && !checkForChanges())
 				editDetails();
 		} else if (e.getSource() == delete || e.getSource() == deleteButton) {
-			if (checkInput() && !checkForChanges())
 				deleteRecord();
 		} else if (e.getSource() == searchBySurname) {
-			if (checkInput() && !checkForChanges())
 				new SearchBySurnameDialog(EmployeeDetails.this);
 		}
+		}
+
+//		if (e.getSource() == closeApp) {
+//			if (checkInput() && !checkForChanges())
+//				exitApp();
+//		} else if (e.getSource() == open) {
+//			if (checkInput() && !checkForChanges())
+//				openFile();
+//		} else if (e.getSource() == save) {
+//			if (checkInput() && !checkForChanges())
+//				saveFile();
+//			change = false;
+//		} else if (e.getSource() == saveAs) {
+//			if (checkInput() && !checkForChanges())
+//				saveFileAs();
+//			change = false;
+//		} else if (e.getSource() == searchById) {
+//			if (checkInput() && !checkForChanges())
+//				displaySearchByIdDialog();
+//		} else if (e.getSource() == searchBySurname) {
+//			if (checkInput() && !checkForChanges())
+//				displaySearchBySurnameDialog();
+//		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
+//			searchEmployeeById();
+//		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
+//			searchEmployeeBySurname();
+//		else if (e.getSource() == saveChange) {
+//			if (checkInput() && !checkForChanges())
+//				;
+//		} else if (e.getSource() == cancelChange)
+//			cancelChange();
+//		else if (e.getSource() == firstItem || e.getSource() == first) {
+//			if (checkInput() && !checkForChanges()) {
+//				firstRecord();
+//				displayRecords(currentEmployee);
+//			}
+//		} else if (e.getSource() == prevItem || e.getSource() == previous) {
+//			if (checkInput() && !checkForChanges()) {
+//				previousRecord();
+//				displayRecords(currentEmployee);
+//			}
+//		} else if (e.getSource() == nextItem || e.getSource() == next) {
+//			if (checkInput() && !checkForChanges()) {
+//				nextRecord();
+//				displayRecords(currentEmployee);
+//			}
+//		} else if (e.getSource() == lastItem || e.getSource() == last) {
+//			if (checkInput() && !checkForChanges()) {
+//				lastRecord();
+//				displayRecords(currentEmployee);
+//			}
+//		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
+//			if (checkInput() && !checkForChanges())
+//				if (isSomeoneToDisplay())
+//					displayEmployeeSummaryDialog();
+//		} else if (e.getSource() == create || e.getSource() == add) {
+//			if (checkInput() && !checkForChanges())
+//				new AddRecordDialog(EmployeeDetails.this);
+//		} else if (e.getSource() == modify || e.getSource() == edit) {
+//			if (checkInput() && !checkForChanges())
+//				editDetails();
+//		} else if (e.getSource() == delete || e.getSource() == deleteButton) {
+//			if (checkInput() && !checkForChanges())
+//				deleteRecord();
+//		} else if (e.getSource() == searchBySurname) {
+//			if (checkInput() && !checkForChanges())
+//				new SearchBySurnameDialog(EmployeeDetails.this);
+//		}
 	}// end actionPerformed
 
 	// content pane for main dialog
@@ -1105,7 +1163,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void windowOpened(WindowEvent e) {
 	}
-	/*created to Display a user*/
+
+	/* created to Display a user */
 	public void setDisplay(Employee thisEmployee, int countGender, int countDep) {
 		idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
 		ppsField.setText(thisEmployee.getPps().trim());
@@ -1114,39 +1173,39 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		genderCombo.setSelectedIndex(countGender);
 		departmentCombo.setSelectedIndex(countDep);
 		salaryField.setText(format.format(thisEmployee.getSalary()));
-		
+
 		if (thisEmployee.getFullTime() == true)
 			fullTimeCombo.setSelectedIndex(1);
 		else
 			fullTimeCombo.setSelectedIndex(2);
 	}
-	
+
 	// loop through panel components and add listeners and format
-	public void addListenersAndFormat(JPanel empDetails,JTextField field ) {
-	for (int i = 0; i < empDetails.getComponentCount(); i++) {
-		empDetails.getComponent(i).setFont(font1);
-		if (empDetails.getComponent(i) instanceof JTextField) {
-			field = (JTextField) empDetails.getComponent(i);
-			field.setEditable(false);
-			if (field == ppsField)
-				field.setDocument(new JTextFieldLimit(9));
-			else
-				field.setDocument(new JTextFieldLimit(20));
-			field.getDocument().addDocumentListener(this);
-		} // end if
-		else if (empDetails.getComponent(i) instanceof JComboBox) {
-			empDetails.getComponent(i).setBackground(Color.WHITE);
-			empDetails.getComponent(i).setEnabled(false);
-			((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
-			((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
-				// set foregroung to combo boxes
-				public void paint(Graphics g) {
-					setForeground(new Color(65, 65, 65));
-					super.paint(g);
-				}// end paint
-			});
-		} // end else if
-	} // end for
+	public void addListenersAndFormat(JPanel empDetails, JTextField field) {
+		for (int i = 0; i < empDetails.getComponentCount(); i++) {
+			empDetails.getComponent(i).setFont(font1);
+			if (empDetails.getComponent(i) instanceof JTextField) {
+				field = (JTextField) empDetails.getComponent(i);
+				field.setEditable(false);
+				if (field == ppsField)
+					field.setDocument(new JTextFieldLimit(9));
+				else
+					field.setDocument(new JTextFieldLimit(20));
+				field.getDocument().addDocumentListener(this);
+			} // end if
+			else if (empDetails.getComponent(i) instanceof JComboBox) {
+				empDetails.getComponent(i).setBackground(Color.WHITE);
+				empDetails.getComponent(i).setEnabled(false);
+				((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
+				((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
+					// set foregroung to combo boxes
+					public void paint(Graphics g) {
+						setForeground(new Color(65, 65, 65));
+						super.paint(g);
+					}// end paint
+				});
+			} // end else if
+		} // end for
 	}
-	
+
 }// end class EmployeeDetails
