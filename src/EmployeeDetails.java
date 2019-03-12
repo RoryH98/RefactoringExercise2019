@@ -266,7 +266,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		cancelChange.setToolTipText("Cancel edit");
 
 		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");		
-		createPopUpForEmployeeDetails(empDetails, field);
+		addListenersAndFormat(empDetails, field);
 		return empDetails;
 	}// end detailsPanel
 
@@ -1122,7 +1122,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 	
 	// loop through panel components and add listeners and format
-	public void createPopUpForEmployeeDetails(JPanel empDetails,JTextField field ) {
+	public void addListenersAndFormat(JPanel empDetails,JTextField field ) {
 	for (int i = 0; i < empDetails.getComponentCount(); i++) {
 		empDetails.getComponent(i).setFont(font1);
 		if (empDetails.getComponent(i) instanceof JTextField) {
