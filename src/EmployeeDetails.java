@@ -878,34 +878,20 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 				// if user chooses to save file, save file
 				if (returnVal == JOptionPane.YES_OPTION) {
-					saveFile();// save file
-					// delete generated file if user saved details to other file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end if
-					// else exit application
+					saveFile();
+						deleteGeneratedFile();
+				}
 				else if (returnVal == JOptionPane.NO_OPTION) {
-					// delete generated file if user chooses not to save file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end else if
-			} // end if
+					deleteGeneratedFile();
+				}
+			}
 			else {
-				// delete generated file if user chooses not to save file
-				if (file.getName().equals(generatedFileName))
-					file.delete();// delete file
-				System.exit(0);// exit application
-			} // end else
-				// else exit application
+					deleteGeneratedFile();
+			} 
 		} else {
-			// delete generated file if user chooses not to save file
-			if (file.getName().equals(generatedFileName))
-				file.delete();// delete file
-			System.exit(0);// exit application
-		} // end else
-	}// end exitApp
+				deleteGeneratedFile();
+		} 
+	}
 
 	// generate 20 character long file name
 	private String getFileName() {
@@ -1111,5 +1097,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} // end else if
 		} // end for
 	}
-
-}// end class EmployeeDetails
+	
+	// delete generated file if user chooses not to save file
+	public void deleteGeneratedFile() {
+		if (file.getName().equals(generatedFileName))
+			file.delete();// delete file
+		System.exit(0);// exit application
+	}
+}
