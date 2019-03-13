@@ -13,19 +13,9 @@ public class Employee{
 	private String department;
 	private double salary;
 	private boolean fullTime;
-
-	//potentially get rid
-	// Create Employee with no details
+	
 	public Employee() {
-		this.employeeId = 0;
-		this.pps = "";
-		this.surname = "";
-		this.firstName = "";
-		this.gender = '\0';
-		this.department = "";
-		this.salary = 0;
-		this.fullTime = false;
-	}//end Employee with no details
+	}
 
 	// Create Employee with details
 	public Employee(int employeeId, String pps, String surname, String firstName, char gender, String department, double salary,
