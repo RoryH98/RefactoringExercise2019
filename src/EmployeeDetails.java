@@ -1092,7 +1092,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				field = (JTextField) empDetails.getComponent(i);
 				field.setEditable(false);
 				if (field == ppsField)
-					field.setDocument(new JTextFieldLimit(9));
+					field.setDocument(new JTextFieldLimit(7));
 				else
 					field.setDocument(new JTextFieldLimit(20));
 				field.getDocument().addDocumentListener(this);

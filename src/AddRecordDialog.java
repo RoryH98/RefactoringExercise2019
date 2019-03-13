@@ -96,7 +96,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			else if(empDetails.getComponent(i) instanceof JTextField){
 				field = (JTextField) empDetails.getComponent(i);
 				if(field == ppsField)
-					field.setDocument(new JTextFieldLimit(9));
+					field.setDocument(new JTextFieldLimit(7));
 				else
 				field.setDocument(new JTextFieldLimit(20));
 			}// end else if
@@ -169,6 +169,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}// end checkInput
 
 
+	
 
 	// action performed
 	public void actionPerformed(ActionEvent e) {
