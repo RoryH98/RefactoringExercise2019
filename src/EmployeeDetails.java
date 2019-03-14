@@ -303,7 +303,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			 * code
 			 */
 			setDisplay(thisEmployee, countGender, countDep);
-		} 
+		}
 		change = false;
 	}// end display records
 
@@ -625,9 +625,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		boolean ppsExist = false;
 		// check for correct PPS format based on assignment description
 		if (pps.length() == 7) {
-			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1)) && Character.isDigit(pps.charAt(2))
-					&& Character.isDigit(pps.charAt(3)) && Character.isDigit(pps.charAt(4))
-					&& Character.isDigit(pps.charAt(5)) && Character.isLetter(pps.charAt(6))) {
+			if (pps.matches("[0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]")) {
+			 
 				// open file for reading
 				application.openReadFile(file.getAbsolutePath());
 				// look in file is PPS already in use
@@ -955,9 +954,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} else if (e.getSource() == listAll || e.getSource() == displayAll) {
 				if (isSomeoneToDisplay())
 					displayEmployeeSummaryDialog();
-					else {
-						JOptionPane.showMessageDialog(null, "No Employees registered!");
-					}
+				else {
+					JOptionPane.showMessageDialog(null, "No Employees registered!");
+				}
 			} else if (e.getSource() == create || e.getSource() == add) {
 				new AddRecordDialog(EmployeeDetails.this);
 			} else if (e.getSource() == modify || e.getSource() == edit) {
