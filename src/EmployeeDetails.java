@@ -696,7 +696,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			valid = false;
 		} // end if
 		try {// try to get values from text field
-			Double.parseDouble(salaryField.getText());
 			// check if salary is greater than 0
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(new Color(255, 150, 150));
