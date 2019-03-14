@@ -85,7 +85,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	String[] department = { "", "Administration", "Production", "Transport", "Management" };
 	// full time combo box values
 	String[] fullTime = { "", "Yes", "No" };
-	
 
 	// initialize menu bar
 	private JMenuBar menuBar() {
@@ -218,7 +217,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		buttonPanel.add(deleteButton = new JButton("Delete Record"), MIG_layout.mig_design3);
 		deleteButton.addActionListener(this);
 		deleteButton.setToolTipText("Delete current Employee");
-		buttonPanel.add(displayAll = new JButton("List all Records"),MIG_layout.mig_design2);
+		buttonPanel.add(displayAll = new JButton("List all Records"), MIG_layout.mig_design2);
 		displayAll.addActionListener(this);
 		displayAll.setToolTipText("List all Registered Employees");
 
@@ -233,30 +232,30 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), MIG_layout.mig_design2 );
+		empDetails.add(new JLabel("ID:"), MIG_layout.mig_design2);
 		empDetails.add(idField = new JTextField(20), MIG_layout.mig_design3);
 		idField.setEditable(false);
 
-		empDetails.add(new JLabel("PPS Number:"),MIG_layout.mig_design2);
+		empDetails.add(new JLabel("PPS Number:"), MIG_layout.mig_design2);
 		empDetails.add(ppsField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Surname:"), MIG_layout.mig_design2 );
-		empDetails.add(surnameField = new JTextField(20),MIG_layout.mig_design3);
+		empDetails.add(new JLabel("Surname:"), MIG_layout.mig_design2);
+		empDetails.add(surnameField = new JTextField(20), MIG_layout.mig_design3);
 
 		empDetails.add(new JLabel("First Name:"), MIG_layout.mig_design2);
 		empDetails.add(firstNameField = new JTextField(20), MIG_layout.mig_design3);
 
 		empDetails.add(new JLabel("Gender:"), MIG_layout.mig_design2);
-		empDetails.add(genderCombo = new JComboBox<String>(gender),MIG_layout.mig_design3);
+		empDetails.add(genderCombo = new JComboBox<String>(gender), MIG_layout.mig_design3);
 
 		empDetails.add(new JLabel("Department:"), MIG_layout.mig_design2);
 		empDetails.add(departmentCombo = new JComboBox<String>(department), MIG_layout.mig_design3);
 
 		empDetails.add(new JLabel("Salary:"), MIG_layout.mig_design2);
-		empDetails.add(salaryField = new JTextField(20),MIG_layout.mig_design3);
+		empDetails.add(salaryField = new JTextField(20), MIG_layout.mig_design3);
 
 		empDetails.add(new JLabel("Full Time:"), MIG_layout.mig_design2);
-		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime),MIG_layout.mig_design3);
+		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), MIG_layout.mig_design3);
 
 		buttonPanel.add(saveChange = new JButton("Save"));
 		saveChange.addActionListener(this);
@@ -304,7 +303,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			 * code
 			 */
 			setDisplay(thisEmployee, countGender, countDep);
-		}
+		} 
 		change = false;
 	}// end display records
 
@@ -523,7 +522,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// write into a file
 		currentByteStart = application.addRecords(newEmployee);
 		application.closeWriteFile();// close file for writing
-	}// end addRecord
+	}// end addRecordn
 
 	// delete (make inactive - empty) record from file
 	private void deleteRecord() {
@@ -543,7 +542,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 					nextRecord();// look for next record
 					displayRecords(currentEmployee);
 				} // end if
-			} // end if
+				else {
+					change = false;// end if
+				}
+			}
+
 		} // end if
 	}// end deleteDecord
 
@@ -613,7 +616,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			genderCombo.setSelectedIndex(0);
 			departmentCombo.setSelectedIndex(0);
 			fullTimeCombo.setSelectedIndex(0);
-			JOptionPane.showMessageDialog(null, "No Employees registered!");
 		}
 		return someoneToDisplay;
 	}// end isSomeoneToDisplay
@@ -624,8 +626,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// check for correct PPS format based on assignment description
 		if (pps.length() == 7) {
 			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1)) && Character.isDigit(pps.charAt(2))
-					&& Character.isDigit(pps.charAt(3)) && Character.isDigit(pps.charAt(4))&& Character.isDigit(pps.charAt(5))
-					&& Character.isLetter(pps.charAt(6))) {
+					&& Character.isDigit(pps.charAt(3)) && Character.isDigit(pps.charAt(4))
+					&& Character.isDigit(pps.charAt(5)) && Character.isLetter(pps.charAt(6))) {
 				// open file for reading
 				application.openReadFile(file.getAbsolutePath());
 				// look in file is PPS already in use
@@ -697,7 +699,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			valid = false;
 		} // end if
 		try {// try to get values from text field
-			// check if salary is greater than 0
+				// check if salary is greater than 0
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(Color_Class.color_RED);
 				valid = false;
@@ -719,7 +721,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return valid;
 	}
-
 
 	// enable text fields for editing
 	public void setEnabled(boolean booleanValue) {
@@ -879,18 +880,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				// if user chooses to save file, save file
 				if (returnVal == JOptionPane.YES_OPTION) {
 					saveFile();
-						deleteGeneratedFile();
-				}
-				else if (returnVal == JOptionPane.NO_OPTION) {
+					deleteGeneratedFile();
+				} else if (returnVal == JOptionPane.NO_OPTION) {
 					deleteGeneratedFile();
 				}
-			}
-			else {
-					deleteGeneratedFile();
-			} 
-		} else {
+			} else {
 				deleteGeneratedFile();
-		} 
+			}
+		} else {
+			deleteGeneratedFile();
+		}
 	}
 
 	// generate 20 character long file name
@@ -939,9 +938,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				displaySearchByIdDialog();
 			} else if (e.getSource() == searchBySurname) {
 				displaySearchBySurnameDialog();
-			}
-			else if (e.getSource() == saveChange) {
-		       saveChanges();
+			} else if (e.getSource() == saveChange) {
+				saveChanges();
 			} else if (e.getSource() == firstItem || e.getSource() == first) {
 				firstRecord();
 				displayRecords(currentEmployee);
@@ -957,6 +955,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} else if (e.getSource() == listAll || e.getSource() == displayAll) {
 				if (isSomeoneToDisplay())
 					displayEmployeeSummaryDialog();
+					else {
+						JOptionPane.showMessageDialog(null, "No Employees registered!");
+					}
 			} else if (e.getSource() == create || e.getSource() == add) {
 				new AddRecordDialog(EmployeeDetails.this);
 			} else if (e.getSource() == modify || e.getSource() == edit) {
@@ -1097,13 +1098,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} // end else if
 		} // end for
 	}
-	
+
 	// delete generated file if user chooses not to save file
 	public void deleteGeneratedFile() {
 		if (file.getName().equals(generatedFileName))
 			file.delete();// delete file
 		System.exit(0);// exit application
 	}
-	
-	
+
 }
