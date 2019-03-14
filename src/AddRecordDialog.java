@@ -58,25 +58,25 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		idField.setEditable(false);
 		
 
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
+		empDetails.add(new JLabel("PPS Number:"), MIG_layout.mig_design2);
 		empDetails.add(ppsField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
+		empDetails.add(new JLabel("Surname:"), MIG_layout.mig_design2);
 		empDetails.add(surnameField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
+		empDetails.add(new JLabel("First Name:"), MIG_layout.mig_design2);
 		empDetails.add(firstNameField = new JTextField(20),MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
+		empDetails.add(new JLabel("Gender:"), MIG_layout.mig_design2);
 		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
+		empDetails.add(new JLabel("Department:"), MIG_layout.mig_design2);
 		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
+		empDetails.add(new JLabel("Salary:"),MIG_layout.mig_design2);
 		empDetails.add(salaryField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
+		empDetails.add(new JLabel("Full Time:"), MIG_layout.mig_design2);
 		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime),MIG_layout.mig_design3);
 
 		buttonPanel.add(save = new JButton("Save"));
@@ -85,7 +85,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		buttonPanel.add(cancel = new JButton("Cancel"));
 		cancel.addActionListener(this);
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
+		empDetails.add(buttonPanel,MIG_layout.mig_design1);
 		// loop through all panel components and add fonts and listeners
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(this.parent.font1);

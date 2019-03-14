@@ -149,24 +149,24 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
 		searchPanel.add(new JLabel("Search by ID:"), MIG_layout.mig_design2);
-		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
+		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200,"+MIG_layout.mig_design2);
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(
 				searchId = new JButton(new ImageIcon(
 						new ImageIcon("search.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
-				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+				"width 35:35:35, height 20:20:20,"+MIG_layout.mig_design3);
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
 
 		searchPanel.add(new JLabel("Search by Surname:"), MIG_layout.mig_design2);
-		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200, growx, pushx");
+		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200,"+MIG_layout.mig_design2);
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(
 				searchSurname = new JButton(new ImageIcon(
 						new ImageIcon("search.png").getImage().getScaledInstance(35, 20, java.awt.Image.SCALE_SMOOTH))),
-				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+				"width 35:35:35, height 20:20:20,"+MIG_layout.mig_design3);
 		searchSurname.addActionListener(this);
 		searchSurname.setToolTipText("Search Employee By Surname");
 
@@ -266,7 +266,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		cancelChange.setVisible(false);
 		cancelChange.setToolTipText("Cancel edit");
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
+		empDetails.add(buttonPanel,MIG_layout.mig_design1);
 		addListenersAndFormat(empDetails, field);
 		return empDetails;
 	}// end detailsPanel
@@ -626,7 +626,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// check for correct PPS format based on assignment description
 		if (pps.length() == 7) {
 			if (pps.matches("[0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]")) {
-			 
 				// open file for reading
 				application.openReadFile(file.getAbsolutePath());
 				// look in file is PPS already in use
@@ -669,6 +668,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end checkForChanges
 
 	// check for input in text fields
+	//add to Validation class int limit called twice in a dialogue
 	private boolean checkInput() {
 		boolean valid = true;
 		// if any of inputs are in wrong format, colour text field and display
@@ -977,11 +977,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		setJMenuBar(menuBar());// add menu bar to frame
 		// add search panel to frame
-		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
+		dialog.add(searchPanel(), "width 400:400:400"+MIG_layout.mig_design2);
 		// add navigation panel to frame
 		dialog.add(navigPanel(), "width 150:150:150, wrap");
 		// add button panel to frame
-		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
+		dialog.add(buttonPanel(), MIG_layout.mig_design1);
 		// add details panel to frame
 		dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 
