@@ -105,8 +105,8 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		back.addActionListener(this);
 		back.setToolTipText("Return to main screen");
 		
-		summaryDialog.add(buttonPanel,"growx, pushx, wrap");
-		summaryDialog.add(scrollPane,"growx, pushx, wrap");
+		summaryDialog.add(buttonPanel,MIG_layout.mig_design3);
+		summaryDialog.add(scrollPane,MIG_layout.mig_design3);
 		scrollPane.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 		
 		return summaryDialog;

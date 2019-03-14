@@ -149,7 +149,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		JPanel searchPanel = new JPanel(new MigLayout());
 
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
-		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
+		searchPanel.add(new JLabel("Search by ID:"), MIG_layout.mig_design2);
 		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
@@ -160,7 +160,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
 
-		searchPanel.add(new JLabel("Search by Surname:"), "growx, pushx");
+		searchPanel.add(new JLabel("Search by Surname:"), MIG_layout.mig_design2);
 		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
@@ -209,16 +209,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
 
-		buttonPanel.add(add = new JButton("Add Record"), migDesign2());
+		buttonPanel.add(add = new JButton("Add Record"), MIG_layout.mig_design2);
 		add.addActionListener(this);
 		add.setToolTipText("Add new Employee Record");
-		buttonPanel.add(edit = new JButton("Edit Record"), migDesign2());
+		buttonPanel.add(edit = new JButton("Edit Record"), MIG_layout.mig_design2);
 		edit.addActionListener(this);
 		edit.setToolTipText("Edit current Employee");
-		buttonPanel.add(deleteButton = new JButton("Delete Record"), migDesign3() );
+		buttonPanel.add(deleteButton = new JButton("Delete Record"), MIG_layout.mig_design3);
 		deleteButton.addActionListener(this);
 		deleteButton.setToolTipText("Delete current Employee");
-		buttonPanel.add(displayAll = new JButton("List all Records"), migDesign2());
+		buttonPanel.add(displayAll = new JButton("List all Records"),MIG_layout.mig_design2);
 		displayAll.addActionListener(this);
 		displayAll.setToolTipText("List all Registered Employees");
 
@@ -233,30 +233,30 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), migDesign2());
-		empDetails.add(idField = new JTextField(20), migDesign3());
+		empDetails.add(new JLabel("ID:"), MIG_layout.mig_design2 );
+		empDetails.add(idField = new JTextField(20), MIG_layout.mig_design3);
 		idField.setEditable(false);
 
-		empDetails.add(new JLabel("PPS Number:"), migDesign2() );
-		empDetails.add(ppsField = new JTextField(20), migDesign3());
+		empDetails.add(new JLabel("PPS Number:"),MIG_layout.mig_design2);
+		empDetails.add(ppsField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Surname:"), migDesign2() );
-		empDetails.add(surnameField = new JTextField(20), migDesign3());
+		empDetails.add(new JLabel("Surname:"), MIG_layout.mig_design2 );
+		empDetails.add(surnameField = new JTextField(20),MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("First Name:"), migDesign2());
-		empDetails.add(firstNameField = new JTextField(20), migDesign3());
+		empDetails.add(new JLabel("First Name:"), MIG_layout.mig_design2);
+		empDetails.add(firstNameField = new JTextField(20), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Gender:"), migDesign2() );
-		empDetails.add(genderCombo = new JComboBox<String>(gender), migDesign3());
+		empDetails.add(new JLabel("Gender:"), MIG_layout.mig_design2);
+		empDetails.add(genderCombo = new JComboBox<String>(gender),MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Department:"), migDesign2() );
-		empDetails.add(departmentCombo = new JComboBox<String>(department), migDesign3());
+		empDetails.add(new JLabel("Department:"), MIG_layout.mig_design2);
+		empDetails.add(departmentCombo = new JComboBox<String>(department), MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Salary:"), migDesign2() );
-		empDetails.add(salaryField = new JTextField(20),migDesign3() );
+		empDetails.add(new JLabel("Salary:"), MIG_layout.mig_design2);
+		empDetails.add(salaryField = new JTextField(20),MIG_layout.mig_design3);
 
-		empDetails.add(new JLabel("Full Time:"), migDesign2() );
-		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), migDesign3());
+		empDetails.add(new JLabel("Full Time:"), MIG_layout.mig_design2);
+		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime),MIG_layout.mig_design3);
 
 		buttonPanel.add(saveChange = new JButton("Save"));
 		saveChange.addActionListener(this);
@@ -1105,12 +1105,5 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		System.exit(0);// exit application
 	}
 	
-	public String migDesign3() {
-	return "growx, pushx, wrap";	
-	}
-	
-	public String migDesign2() {
-		return "growx, pushx";	
-		}
 	
 }
