@@ -1,9 +1,3 @@
-/*
- * 
- * This is the definition of the Employee object
- * 
- * */
-
 public class Employee{
 	private int employeeId;
 	private String pps;
@@ -28,9 +22,8 @@ public class Employee{
 		this.department = department;
 		this.salary = salary;
 		this.fullTime = fullTime;
-	}// end Employee with details
+	}
 
-	// Getter methods
 	public int getEmployeeId() {
 		return this.employeeId;
 	}
@@ -95,4 +88,4 @@ public class Employee{
 	public void setFullTime(boolean fullTime) {
 		this.fullTime = fullTime;
 	}
-}// end class Employee
+}

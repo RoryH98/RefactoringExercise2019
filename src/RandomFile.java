@@ -159,7 +159,7 @@ public class RandomFile {
 	} // end method closeFile
 
 	// Get position of first record in file
-	public long getFirst() {
+	public long getFirstRecord() {
 		long byteToStart = 0;
 
 		try {// try to get file
@@ -240,30 +240,30 @@ public class RandomFile {
 	}// end readRecords
 
 	// Check if PPS Number already in use
-	public boolean isPpsExist(String pps, long currentByteStart) {
+	public boolean isPpsExist(String pps, long position) {
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 		boolean ppsExist = false;
-		long oldByteStart = currentByteStart;
-		long currentByte = 0;
+		long currentPosition = 0;
+		
 
 		try {// try to read from file and look for PPS Number
 			// Start from start of file and loop until PPS Number is found or search returned to start position
-			while (currentByte != input.length() && !ppsExist) {
+			while (currentPosition != input.length() && !ppsExist) {
 				//if PPS Number is in position of current object - skip comparison
-				if (currentByte != oldByteStart) {
-					input.seek(currentByte);// Look for proper position in file
+				if (currentPosition != position) {
+					input.seek(currentPosition);// Look for proper position in file
 					record.read(input);// Get record from file
 					// If PPS Number already exist in other record display message and stop search
 					if (record.getPps().trim().equalsIgnoreCase(pps)) {
 						ppsExist = true;
 						JOptionPane.showMessageDialog(null, "PPS number already exist!");
-					}// end if
-				}// end if
-				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
-			}// end while
-		} // end try
+					}
+				}
+				currentPosition = currentPosition + RandomAccessEmployeeRecord.SIZE;
+			}
+		} 
 		catch (IOException e) {
-		}// end catch
+		}
 
 		return ppsExist;
 	}// end isPpsExist
