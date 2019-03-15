@@ -298,12 +298,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	private void displaySearchByIdDialog() {
 		if (isSomeoneToDisplay())
-			new SearchByIdDialog(EmployeeDetails.this);
+			new SearchByDialog(EmployeeDetails.this,"ID");
 	}
 
 	private void displaySearchBySurnameDialog() {
 		if (isSomeoneToDisplay())
-			new SearchBySurnameDialog(EmployeeDetails.this);
+			new SearchByDialog(EmployeeDetails.this,"Surname");
 	}
 
 	private void firstRecord() {
@@ -514,7 +514,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return allEmployee;
 	}
-
+/*edit*/
 	private void editDetails() {
 		if (isSomeoneToDisplay()) {
 			// remove euro sign from salary text field
@@ -850,7 +850,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} else if (e.getSource() == delete || e.getSource() == deleteButton) {
 				deleteEmployee();
 			} else if (e.getSource() == searchBySurname) {
-				new SearchBySurnameDialog(EmployeeDetails.this);
+				new SearchByDialog(EmployeeDetails.this,"Surname");
 			}
 		}
 	}
