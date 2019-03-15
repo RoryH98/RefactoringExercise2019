@@ -298,12 +298,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	private void displaySearchByIdDialog() {
 		if (isSomeoneToDisplay())
-			new SearchByDialog(EmployeeDetails.this,"ID");
+			new SearchByDialog(EmployeeDetails.this, "ID");
 	}
 
 	private void displaySearchBySurnameDialog() {
 		if (isSomeoneToDisplay())
-			new SearchByDialog(EmployeeDetails.this,"Surname");
+			new SearchByDialog(EmployeeDetails.this, "Surname");
 	}
 
 	private void firstRecord() {
@@ -332,7 +332,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		}
 	}
 
-	private void nextRecord() {
+	public void nextRecord() {
 		// if any active record in file look for first record
 		if (isSomeoneToDisplay()) {
 			application.openReadFile(file.getAbsolutePath());
@@ -360,73 +360,25 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	public void searchEmployeeById() {
-		boolean found = false;
-
-		try {
-			if (isSomeoneToDisplay()) {
-				firstRecord();
-				int firstId = currentEmployee.getEmployeeId();
-				// if ID to search is already displayed do nothing else loop
-				// through records
-				if (searchByIdField.getText().trim().equals(idField.getText().trim()))
-					found = true;
-				/* look back* practically same if statement */
-				else if (searchByIdField.getText().trim().equals(Integer.toString(currentEmployee.getEmployeeId()))) {
-					found = true;
-					displayCurrentEmployee(currentEmployee);
-				} else {
-					nextRecord();
-					while (firstId != currentEmployee.getEmployeeId()) {
-						/* look back* practically same if statement not as bad as last one */
-						if (Integer.parseInt(searchByIdField.getText().trim()) == currentEmployee.getEmployeeId()) {
-							found = true;
-							displayCurrentEmployee(currentEmployee);
-							break;
-						} else
-							nextRecord();
-					}
-				}
-				if (!found)
-					JOptionPane.showMessageDialog(null, "Employee not found!");
-			} else {
-				JOptionPane.showMessageDialog(null, "No Employees registered!");
-			}
-		} catch (NumberFormatException e) {
-			searchByIdField.setBackground(Color_Class.color_RED);
-			JOptionPane.showMessageDialog(null, "Wrong ID format!");
+		SearchByDialog search = new SearchByDialog(EmployeeDetails.this);
+		if (isSomeoneToDisplay()) {
+		search.searchEmployeeById(searchByIdField, idField);
 		}
-		searchByIdField.setBackground(Color.WHITE);
-		searchByIdField.setText("");
+		else {
+			JOptionPane.showMessageDialog(null, "No Employees registered!");
+		}
+
 	}
 
 	public void searchEmployeeBySurname() {
-		boolean found = false;
+		SearchByDialog search = new SearchByDialog(EmployeeDetails.this);
 		if (isSomeoneToDisplay()) {
 			firstRecord();
-			String firstSurname = currentEmployee.getSurname().trim();
-			/* look back see same if statement */
-			if (searchBySurnameField.getText().trim().equalsIgnoreCase(surnameField.getText().trim()))
-				found = true;
-			else if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
-				found = true;
-				displayCurrentEmployee(currentEmployee);
-			} else {
-				nextRecord();
-				while (!firstSurname.trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
-					if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
-						found = true;
-						displayCurrentEmployee(currentEmployee);
-						break;
-					} else
-						nextRecord();
-				}
-			}
-			if (!found)
-				JOptionPane.showMessageDialog(null, "Employee not found!");
+//			System.out.println("HELLO");
+			search.searchEmployeeBySurname(searchBySurnameField, surnameField);
 		} else {
 			JOptionPane.showMessageDialog(null, "No Employees registered!");
 		}
-		searchBySurnameField.setText("");
 	}
 
 	public int getNextFreeEmployeeId() {
@@ -514,7 +466,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return allEmployee;
 	}
-/*edit*/
+
+	/* edit */
 	private void editDetails() {
 		if (isSomeoneToDisplay()) {
 			// remove euro sign from salary text field
@@ -549,9 +502,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return someoneToDisplay;
 	}
 
-	// check for correct PPS format and look if PPS already in use
-
-
 	private boolean checkFileName(File fileName) {
 		boolean checkFile = false;
 		if (fileName.toString().endsWith(".dat"))
@@ -570,19 +520,20 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		else {
 			setEnabled(false);
 			displayCurrentEmployee(currentEmployee);
-		} 
+		}
 		return anyChanges;
 	}
 
 	public boolean checkInput() {
 		Validate validate = new Validate();
-		boolean valid = validate.validate2(ppsField,surnameField,firstNameField,genderCombo,departmentCombo,salaryField,fullTimeCombo, objectStartPosition, application, file);
+		boolean valid = validate.validate2(ppsField, surnameField, firstNameField, genderCombo, departmentCombo,
+				salaryField, fullTimeCombo, objectStartPosition, application, file);
 		return valid;
 	}
 
 	public void setEnabled(boolean booleanValue) {
 		boolean search;
-		/*look at this*/
+		/* look at this */
 		if (booleanValue)
 			search = false;
 		else
@@ -601,15 +552,15 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		searchId.setEnabled(search);
 		searchSurname.setEnabled(search);
 	}
-	
+
 	private void openFile() {
 		final JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Open");
 		fc.setFileFilter(datfilter);
-		File newFile; 
-		//offers to save old file
+		File newFile;
+		// offers to save old file
 		if (file.length() != 0 || change) {
-			/*check if JOptionPane is use more than once*/
+			/* check if JOptionPane is use more than once */
 			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			if (returnVal == JOptionPane.YES_OPTION) {
@@ -621,7 +572,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// if file been chosen, open it
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			newFile = fc.getSelectedFile();
-			//delete file
+			// delete file
 			if (file.getName().equals(generatedFileName))
 				file.delete();
 			file = newFile;
@@ -633,7 +584,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	private void saveFile() {
-		/*look back*/
+		/* look back */
 		// if file name is generated file name, save file as 'save as' else save
 		// changes to file
 		if (file.getName().equals(generatedFileName))
@@ -645,7 +596,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				if (returnVal == JOptionPane.YES_OPTION) {
 					if (!idField.getText().equals("")) {
 						application.openWriteFile(file.getAbsolutePath());
-						//make sure changes match it
+						// make sure changes match it
 						currentEmployee = getChangedDetails();
 						application.changeRecords(currentEmployee, objectStartPosition);
 						application.closeWriteFile();
@@ -672,7 +623,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		setEnabled(false);
 	}
 
-   /*look at all these saves*/
+	/* look at all these saves */
 	private void saveFileAs() {
 		final JFileChooser fc = new JFileChooser();
 		File newFile;
@@ -688,8 +639,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			if (!checkFileName(newFile)) {
 				newFile = new File(newFile.getAbsolutePath() + ".dat");
 				application.createFile(newFile.getAbsolutePath());
-			} 
-			else
+			} else
 				application.createFile(newFile.getAbsolutePath());
 
 			try {// try to copy old file to new file
@@ -697,15 +647,14 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				if (file.getName().equals(generatedFileName))
 					file.delete();
 				file = newFile;
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 			}
 		}
 		changesMade = false;
 	}
 
 	private void exitApp() {
-		/*same option again for saving a file*/
+		/* same option again for saving a file */
 		if (file.length() != 0) {
 			if (changesMade) {
 				int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
@@ -724,7 +673,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		}
 	}
 
-	/*look at this*/
+	/* look at this */
 	// generate 20 character long file name
 	private String getFileName() {
 		String fileNameChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
@@ -794,7 +743,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} else if (e.getSource() == delete || e.getSource() == deleteButton) {
 				deleteEmployee();
 			} else if (e.getSource() == searchBySurname) {
-				new SearchByDialog(EmployeeDetails.this,"Surname");
+				new SearchByDialog(EmployeeDetails.this, "Surname");
 			}
 		}
 	}
@@ -922,11 +871,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			}
 		}
 	}
-	public RandomFile getApplication(){
+
+	public RandomFile getApplication() {
 		return application;
 
 	}
-	
+
 	public File getFile() {
 		return file;
 	}

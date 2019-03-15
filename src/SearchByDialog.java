@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -23,9 +24,13 @@ public class SearchByDialog extends JDialog implements ActionListener {
 	String dialog = "";
 	String type = "";
 
+	public SearchByDialog(EmployeeDetails parent) {
+		this.parent = parent;
+	}
+
 	public SearchByDialog(EmployeeDetails parent, String type) {
 		this.type = type;
-		setTitle("Search by "+type);
+		setTitle("Search by " + type);
 		setModal(true);
 		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -101,6 +106,74 @@ public class SearchByDialog extends JDialog implements ActionListener {
 			// else dispose dialog
 		else if (e.getSource() == cancel)
 			dispose();// dispose dialog
+	}
+
+	public void searchEmployeeBySurname(JTextField searchBySurnameField, JTextField surnameField) {
+		boolean found = false;
+
+		String firstSurname = this.parent.currentEmployee.getSurname().trim();
+		/* look back see same if statement */
+//			System.out.println("name:"+surnameField.getText());
+		if (searchBySurnameField.getText().trim().equalsIgnoreCase(surnameField.getText().trim()))
+			found = true;
+		else if (searchBySurnameField.getText().trim()
+				.equalsIgnoreCase(this.parent.currentEmployee.getSurname().trim())) {
+			found = true;
+			this.parent.displayCurrentEmployee(this.parent.currentEmployee);
+		} else {
+			this.parent.nextRecord();
+			while (!firstSurname.trim().equalsIgnoreCase(this.parent.currentEmployee.getSurname().trim())) {
+				System.out.println("ENTERED");
+				if (searchBySurnameField.getText().trim()
+						.equalsIgnoreCase(this.parent.currentEmployee.getSurname().trim())) {
+					found = true;
+					this.parent.displayCurrentEmployee(this.parent.currentEmployee);
+					break;
+				} else
+					this.parent.nextRecord();
+			}
+		}
+		if (!found)
+			JOptionPane.showMessageDialog(null, "Employee not found!");
+
+		searchBySurnameField.setText("");
+	}
+
+	public void searchEmployeeById(JTextField searchByIdField, JTextField idField) {
+		boolean found = false;
+
+		try {
+			int firstId = this.parent.currentEmployee.getEmployeeId();
+			// if ID to search is already displayed do nothing else loop
+			// through records
+			if (searchByIdField.getText().trim().equals(idField.getText().trim()))
+				found = true;
+			/* look back* practically same if statement */
+			else if (searchByIdField.getText().trim()
+					.equals(Integer.toString(this.parent.currentEmployee.getEmployeeId()))) {
+				found = true;
+				this.parent.displayCurrentEmployee(this.parent.currentEmployee);
+			} else {
+				this.parent.nextRecord();
+				while (firstId != this.parent.currentEmployee.getEmployeeId()) {
+					/* look back* practically same if statement not as bad as last one */
+					if (Integer.parseInt(searchByIdField.getText().trim()) == this.parent.currentEmployee
+							.getEmployeeId()) {
+						found = true;
+						this.parent.displayCurrentEmployee(this.parent.currentEmployee);
+						break;
+					} else
+						this.parent.nextRecord();
+				}
+			}
+			if (!found)
+				JOptionPane.showMessageDialog(null, "Employee not found!");
+		} catch (NumberFormatException e) {
+			this.parent.searchByIdField.setBackground(Color_Class.color_RED);
+			JOptionPane.showMessageDialog(null, "Wrong ID format!");
+		}
+		searchByIdField.setBackground(Color.WHITE);
+		searchByIdField.setText("");
 	}
 
 }
