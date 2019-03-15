@@ -550,21 +550,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	// check for correct PPS format and look if PPS already in use
-	public boolean correctPps(String pps, long currentByte) {
-		boolean ppsExist = false;
-		if (pps.length() == 7) {
-			if (pps.matches("[0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]")) {
-				application.openReadFile(file.getAbsolutePath());
-				// look in file is PPS already in use
-				ppsExist = application.isPpsExist(pps, currentByte);
-				application.closeReadFile();
-			} else
-				ppsExist = true;
-		} else
-			ppsExist = true;
 
-		return ppsExist;
-	}
 
 	private boolean checkFileName(File fileName) {
 		boolean checkFile = false;
@@ -588,51 +574,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return anyChanges;
 	}
 
-	private boolean checkInput() {
-		boolean valid = true;
-		if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
-			ppsField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), objectStartPosition)) {
-			ppsField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
-			surnameField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (firstNameField.isEditable() && firstNameField.getText().trim().isEmpty()) {
-			firstNameField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (genderCombo.getSelectedIndex() == 0 && genderCombo.isEnabled()) {
-			genderCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (departmentCombo.getSelectedIndex() == 0 && departmentCombo.isEnabled()) {
-			departmentCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		try {
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(Color_Class.color_RED);
-				valid = false;
-			}
-		} 
-		catch (NumberFormatException num) {
-			if (salaryField.isEditable()) {
-				salaryField.setBackground(Color_Class.color_RED);
-				valid = false;
-			}
-		}
-		if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
-			fullTimeCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (!valid)
-			JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-
+	public boolean checkInput() {
+		Validate validate = new Validate();
+		boolean valid = validate.validate2(ppsField,surnameField,firstNameField,genderCombo,departmentCombo,salaryField,fullTimeCombo, objectStartPosition, application, file);
 		return valid;
 	}
 
@@ -977,6 +921,14 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				});
 			}
 		}
+	}
+	public RandomFile getApplication(){
+		return application;
+
+	}
+	
+	public File getFile() {
+		return file;
 	}
 
 	// delete generated file if user chooses not to save file

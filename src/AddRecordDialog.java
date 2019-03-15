@@ -26,6 +26,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
 	JButton save, cancel;
 	EmployeeDetails parent;
+	Validate validate = new Validate();
 	public AddRecordDialog(EmployeeDetails parent) {
 		setTitle("Add Record");
 		setModal(true);
@@ -120,45 +121,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 	// check for input in text fields
 	public boolean checkInput() {
-		boolean valid = true;
-		if (ppsField.getText().equals("")) {
-			ppsField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
-			ppsField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (surnameField.getText().isEmpty()) {
-			surnameField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (firstNameField.getText().isEmpty()) {
-			firstNameField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (genderCombo.getSelectedIndex() == 0) {
-			genderCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (departmentCombo.getSelectedIndex() == 0) {
-			departmentCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		try {
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(Color_Class.color_RED);
-				valid = false;
-			}
-		}
-		catch (NumberFormatException num) {
-			salaryField.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
-		if (fullTimeCombo.getSelectedIndex() == 0) {
-			fullTimeCombo.setBackground(Color_Class.color_RED);
-			valid = false;
-		}
+		boolean valid = validate.validate2(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo, -1, this.parent.getApplication(), this.parent.getFile());
+        
 		return valid;
 	}
 

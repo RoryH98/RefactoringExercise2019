@@ -1,3 +1,4 @@
+
 /*
  * 
  * This class is for accessing, creating and modifying records in a file
@@ -147,16 +148,14 @@ public class RandomFile {
 
 	// Close file
 	public void closeReadFile() {
-		try // close file and exit
-		{
+		try {
 			if (input != null)
 				input.close();
-		} // end try
-		catch (IOException ioException) {
+		} catch (IOException ioException) {
 			JOptionPane.showMessageDialog(null, "Error closing file!");
 			System.exit(1);
-		} // end catch
-	} // end method closeFile
+		}
+	}
 
 	// Get position of first record in file
 	public long getFirstRecord() {
@@ -164,12 +163,11 @@ public class RandomFile {
 
 		try {// try to get file
 			input.length();
-		} // end try
-		catch (IOException e) {
-		}// end catch
-		
+		} catch (IOException e) {
+		}
+
 		return byteToStart;
-	}// end getFirst
+	}
 
 	// Get position of last record in file
 	public long getLast() {
@@ -177,9 +175,9 @@ public class RandomFile {
 
 		try {// try to get position of last record
 			byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
-		}// end try 
+		} // end try
 		catch (IOException e) {
-		}// end catch
+		} // end catch
 
 		return byteToStart;
 	}// end getFirst
@@ -199,7 +197,7 @@ public class RandomFile {
 		catch (NumberFormatException e) {
 		} // end catch
 		catch (IOException e) {
-		}// end catch
+		} // end catch
 		return byteToStart;
 	}// end getFirst
 
@@ -209,7 +207,8 @@ public class RandomFile {
 
 		try {// try to read from file
 			input.seek(byteToStart);// Look for proper position in file
-			// if previous position is start of file go to end of file, else get previous position
+			// if previous position is start of file go to end of file, else get previous
+			// position
 			if (byteToStart == 0)
 				byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
 			else
@@ -218,7 +217,7 @@ public class RandomFile {
 		catch (NumberFormatException e) {
 		} // end catch
 		catch (IOException e) {
-		}// end catch
+		} // end catch
 		return byteToStart;
 	}// end getPrevious
 
@@ -232,8 +231,8 @@ public class RandomFile {
 			record.read(input);// Read record from file
 		} // end try
 		catch (IOException e) {
-		}// end catch
-		
+		} // end catch
+
 		thisEmp = record;
 
 		return thisEmp;
@@ -244,12 +243,12 @@ public class RandomFile {
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 		boolean ppsExist = false;
 		long currentPosition = 0;
-		
 
 		try {// try to read from file and look for PPS Number
-			// Start from start of file and loop until PPS Number is found or search returned to start position
+				// Start from start of file and loop until PPS Number is found or search
+				// returned to start position
 			while (currentPosition != input.length() && !ppsExist) {
-				//if PPS Number is in position of current object - skip comparison
+				// if PPS Number is in position of current object - skip comparison
 				if (currentPosition != position) {
 					input.seek(currentPosition);// Look for proper position in file
 					record.read(input);// Get record from file
@@ -261,8 +260,7 @@ public class RandomFile {
 				}
 				currentPosition = currentPosition + RandomAccessEmployeeRecord.SIZE;
 			}
-		} 
-		catch (IOException e) {
+		} catch (IOException e) {
 		}
 
 		return ppsExist;
@@ -271,23 +269,25 @@ public class RandomFile {
 	// Check if any record contains valid ID - greater than 0
 	public boolean isSomeoneToDisplay() {
 		boolean someoneToDisplay = false;
-		long currentByte = 0;
+		long currentPosition = 0;
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 
 		try {// try to read from file and look for ID
-			// Start from start of file and loop until valid ID is found or search returned to start position
-			while (currentByte != input.length() && !someoneToDisplay) {
-				input.seek(currentByte);// Look for proper position in file
+				// Start from start of file and loop until valid ID is found or search returned
+				// to start position
+			while (currentPosition != input.length() && !someoneToDisplay) {
+				input.seek(currentPosition);
 				record.read(input);// Get record from file
 				// If valid ID exist in stop search
-				if (record.getEmployeeId() > 0)
+				/*look back*/
+			if (record.getEmployeeId() > 0)
 					someoneToDisplay = true;
-				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
-			}// end while
-		}// end try
+				currentPosition= currentPosition + RandomAccessEmployeeRecord.SIZE;
+			}
+		}
 		catch (IOException e) {
-		}// end catch
+		} 
 
 		return someoneToDisplay;
-	}// end isSomeoneToDisplay
-}// end class RandomFile
+	}
+}
