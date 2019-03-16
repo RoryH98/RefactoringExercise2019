@@ -1,6 +1,6 @@
 /*
  * 
- * This is a dialog for adding new Employees and saving records to file
+ * This is a dialog for adding new Employees and saving Employees to file
  * 
  * */
 import java.awt.Color;
@@ -21,14 +21,14 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-public class AddRecordDialog extends JDialog implements ActionListener {
+public class AddEmployeeDialog extends JDialog implements ActionListener {
 	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
 	JButton save, cancel;
 	EmployeeDetails parent;
 	Validate validate = new Validate();
-	public AddRecordDialog(EmployeeDetails parent) {
-		setTitle("Add Record");
+	public AddEmployeeDialog(EmployeeDetails parent) {
+		setTitle("Add Employee");
 		setModal(true);
 		this.parent = parent;
 		this.parent.setEnabled(false);
@@ -104,8 +104,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		return empDetails;
 	}
 
-	// add record to file
-	public void addRecord() {
+	// add Employee to file
+	public void addEmployee() {
 		boolean fullTime = false;
 		Employee theEmployee;
 
@@ -128,9 +128,9 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == save) {
-			// if inputs correct, save record
+			// if inputs correct, save Employee
 			if (checkInput()) {
-				addRecord();
+				addEmployee();
 				dispose();
 				this.parent.changesMade = true;
 			}

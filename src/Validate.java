@@ -8,7 +8,7 @@ import javax.swing.UIManager;
 public class Validate {
 	public boolean validate2(JTextField ppsField, JTextField surnameField, JTextField firstNameField,
 			JComboBox<String> genderCombo, JComboBox<String> departmentCombo, JTextField salaryField,
-			JComboBox<String> fullTimeCombo,long currentPosition,RandomFile application,File file) {
+			JComboBox<String> fullTimeCombo,long currentPosition,FileManager application,File file) {
 		boolean valid = true;
 		EmployeeDetails ed = new EmployeeDetails();
 		if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
@@ -75,7 +75,7 @@ public class Validate {
 		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
 	}
 	
-	public boolean correctPps(String pps, long currentPosition,RandomFile application, File file) {
+	public boolean correctPps(String pps, long currentPosition,FileManager application, File file) {
 		boolean ppsExist = false;
 		if (pps.length() == 7) {
 			if (pps.matches("[0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]")) {

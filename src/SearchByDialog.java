@@ -121,7 +121,7 @@ public class SearchByDialog extends JDialog implements ActionListener {
 			found = true;
 			this.parent.displayCurrentEmployee(this.parent.currentEmployee);
 		} else {
-			this.parent.nextRecord();
+			this.parent.nextEmployee();
 			while (!firstSurname.trim().equalsIgnoreCase(this.parent.currentEmployee.getSurname().trim())) {
 				System.out.println("ENTERED");
 				if (searchBySurnameField.getText().trim()
@@ -130,7 +130,7 @@ public class SearchByDialog extends JDialog implements ActionListener {
 					this.parent.displayCurrentEmployee(this.parent.currentEmployee);
 					break;
 				} else
-					this.parent.nextRecord();
+					this.parent.nextEmployee();
 			}
 		}
 		if (!found)
@@ -144,26 +144,23 @@ public class SearchByDialog extends JDialog implements ActionListener {
 
 		try {
 			int firstId = this.parent.currentEmployee.getEmployeeId();
-			// if ID to search is already displayed do nothing else loop
-			// through records
+		
 			if (searchByIdField.getText().trim().equals(idField.getText().trim()))
 				found = true;
-			/* look back* practically same if statement */
 			else if (searchByIdField.getText().trim()
 					.equals(Integer.toString(this.parent.currentEmployee.getEmployeeId()))) {
 				found = true;
 				this.parent.displayCurrentEmployee(this.parent.currentEmployee);
 			} else {
-				this.parent.nextRecord();
+				this.parent.nextEmployee();
 				while (firstId != this.parent.currentEmployee.getEmployeeId()) {
-					/* look back* practically same if statement not as bad as last one */
 					if (Integer.parseInt(searchByIdField.getText().trim()) == this.parent.currentEmployee
 							.getEmployeeId()) {
 						found = true;
 						this.parent.displayCurrentEmployee(this.parent.currentEmployee);
 						break;
 					} else
-						this.parent.nextRecord();
+						this.parent.nextEmployee();
 				}
 			}
 			if (!found)

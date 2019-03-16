@@ -1,25 +1,23 @@
 /*
  * 
- * This is a Random Access Employee record definition
+ * This is a Random Access Employee Employee definition
  * 
  * */
 
 import java.io.RandomAccessFile;
 import java.io.IOException;
 
-/*look back so we can change file name */
-public class RandomAccessEmployeeRecord extends Employee
+public class AccessEmployeeFileDetails extends Employee
 {  
     public static final int SIZE = 175; 
 
-   // Create empty record
-   public RandomAccessEmployeeRecord()
+   // Create empty Employee
+   public AccessEmployeeFileDetails()
    {
       this(0, "","","",'\0', "", 0.0, false);
    } 
 
-   // Initialize record with details
-   public RandomAccessEmployeeRecord( int employeeId, String pps, String surname, String firstName, char gender, 
+   public AccessEmployeeFileDetails( int employeeId, String pps, String surname, String firstName, char gender, 
 		   String department, double salary, boolean fullTime)
    {
       super(employeeId, pps, surname, firstName, gender, department, salary, fullTime);
@@ -51,7 +49,7 @@ public class RandomAccessEmployeeRecord extends Employee
       return new String( name ).replace( '\0', ' ' );
    } 
 
-   // Write a record to specified RandomAccessFile
+   // Write a Employee to specified RandomAccessFile
    public void write( RandomAccessFile file ) throws IOException
    {
       file.writeInt( getEmployeeId() );
@@ -64,7 +62,6 @@ public class RandomAccessEmployeeRecord extends Employee
       file.writeBoolean(getFullTime());
    } 
 
-   // Ensure that string is correct length
    private void writeName( RandomAccessFile file, String name )
       throws IOException
    {
