@@ -1,10 +1,4 @@
 
-/* * 
- * This is a menu driven system that will allow users to define a data structure representing a collection of 
- * Employees that can be displayed both by means of a dialog that can be scrolled through and by means of a table
- * to give an overall view of the collection contents.
- * 
- * */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -374,7 +368,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		SearchByDialog search = new SearchByDialog(EmployeeDetails.this);
 		if (isSomeoneToDisplay()) {
 			firstEmployee();
-//			System.out.println("HELLO");
 		search.searchEmployeeBySurname( searchBySurnameField, surnameField);
 		}
 		else {
@@ -384,9 +377,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public int getNextFreeEmployeeId() {
 		int nextFreeId = 0;
-		/* look back on no file will be empty */
-		// if file is empty or all Employees are empty start with ID 1 else look
-		// for last active Employee
 		if (file.length() == 0 || !isSomeoneToDisplay())
 			nextFreeId++;
 		else {
@@ -467,7 +457,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return allEmployee;
 	}
-/*edit*/
+
 	private void editDetails() {
 		if (isSomeoneToDisplay()) {
 			// remove euro sign from salary text field
@@ -531,7 +521,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void setEnabled(boolean booleanValue) {
 		boolean search;
-		/*look at this*/
 		if (booleanValue)
 			search = false;
 		else
@@ -558,7 +547,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		File newFile; 
 		//offers to save old file
 		if (file.length() != 0 || change) {
-			/*check if JOptionPane is use more than once*/
 			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			if (returnVal == JOptionPane.YES_OPTION) {
@@ -582,7 +570,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	private void saveFile() {
-		/*look back*/
 		// if file name is generated file name, save file as 'save as' else save
 		// changes to file
 		if (file.getName().equals(generatedFileName))
@@ -673,7 +660,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		}
 	}
 
-	/*look at this*/
 	// generate 20 character long file name
 	private String getFileName() {
 		String fileNameChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
@@ -829,7 +815,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	public void windowOpened(WindowEvent e) {
 	}
 
-	/* created to Display a user */
 	public void setDisplay(Employee thisEmployee, int countGender, int countDep) {
 		idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
 		ppsField.setText(thisEmployee.getPps().trim());

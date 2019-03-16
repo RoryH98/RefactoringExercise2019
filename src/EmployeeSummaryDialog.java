@@ -1,8 +1,3 @@
-/*
- * 
- * This is the summary dialog for displaying all Employee details
- * 
- * */
 
 import java.awt.Component;
 import java.awt.Container;

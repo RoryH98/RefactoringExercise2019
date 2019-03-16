@@ -35,8 +35,7 @@ public class Validate {
 			departmentCombo.setBackground(Color_Class.color_RED);
 			valid = false;
 		}
-		try {// try to get values from text field
-			// check if salary is greater than 0
+		try {
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(Color_Class.color_RED);
 				valid = false;
@@ -45,8 +44,8 @@ public class Validate {
 			if (salaryField.isEditable()) {
 				salaryField.setBackground(Color_Class.color_RED);
 				valid = false;
-			} // end if
-		} // end catch
+			}
+		}
 		if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
 			fullTimeCombo.setBackground(Color_Class.color_RED);
 			valid = false;

@@ -1,14 +1,10 @@
-/*
- * 
- * This is a class for limiting input in text fields
- * 
- * */
+
 
 import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-// set text field input limits
+
 public class JTextFieldLimit extends PlainDocument {
   private int limit;
   JTextFieldLimit(int limit) {

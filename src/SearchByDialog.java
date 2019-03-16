@@ -35,7 +35,6 @@ public class SearchByDialog extends JDialog implements ActionListener {
 		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		// this.dialog = id;
 
 		JScrollPane scrollPane = new JScrollPane(searchPane());
 		setContentPane(scrollPane);
@@ -69,9 +68,7 @@ public class SearchByDialog extends JDialog implements ActionListener {
 		searchPanel.add(textPanel);
 		searchPanel.add(buttonPanel);
 		return searchPanel;
-	}// end searchPane
-
-	// action listener for save and cancel button
+	}
 
 	public String getDialog() {
 		return dialog;
@@ -92,28 +89,24 @@ public class SearchByDialog extends JDialog implements ActionListener {
 				this.parent.searchEmployeeById();
 				dispose();
 			} catch (NumberFormatException num) {
-				// display message and set colour to text field if entry is wrong
-				searchField.setBackground(new Color(255, 150, 150));
+				searchField.setBackground(Color_Class.color_RED);
 				JOptionPane.showMessageDialog(null, "Wrong ID format!");
-			} // end catch
-		} // end if
+			}
+		}
 		else if (e.getSource() == search && type.equals("Surname")) {
 			this.parent.searchBySurnameField.setText(searchField.getText());
-			// search Employee by surname
 			this.parent.searchEmployeeBySurname();
-			dispose();// dispose dialog
-		} // end if
-			// else dispose dialog
+			dispose();
+		}
 		else if (e.getSource() == cancel)
-			dispose();// dispose dialog
+			dispose();
 	}
 
 	public void searchEmployeeBySurname(JTextField searchBySurnameField, JTextField surnameField) {
 		boolean found = false;
 
 		String firstSurname = this.parent.currentEmployee.getSurname().trim();
-		/* look back see same if statement */
-//			System.out.println("name:"+surnameField.getText());
+	
 		if (searchBySurnameField.getText().trim().equalsIgnoreCase(surnameField.getText().trim()))
 			found = true;
 		else if (searchBySurnameField.getText().trim()
