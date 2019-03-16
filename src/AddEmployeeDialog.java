@@ -1,8 +1,4 @@
-/*
- * 
- * This is a dialog for adding new Employees and saving Employees to file
- * 
- * */
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;

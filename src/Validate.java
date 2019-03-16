@@ -53,7 +53,6 @@ public class Validate {
 
 		if (!valid)
 			JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-		// set text field to white colour if text fields are editable
 		if (ppsField.isEditable()) {
 			setToWhite(ppsField, surnameField, firstNameField, salaryField, genderCombo, departmentCombo,
 					fullTimeCombo);
@@ -79,7 +78,6 @@ public class Validate {
 		if (pps.length() == 7) {
 			if (pps.matches("[0-9][0-9][0-9][0-9][0-9][0-9][a-zA-Z]")) {
 				application.openReadFile(file.getAbsolutePath());
-				// look in file is PPS already in use
 				ppsExist = application.isPpsExist(pps, currentPosition);
 				application.closeReadFile();
 			} else
